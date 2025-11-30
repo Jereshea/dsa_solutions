@@ -76,10 +76,18 @@ public:
     return search_trie_tree(root, word);
   }
 
-  void remove_trie_tree(Trie *root, string word) {
+  bool remove_trie_tree(Trie *root, string word) {
+    // cout<<endl<<word;
     if (word.length() == 0) {
       root->is_terminal_char = false;
-      return;
+
+      bool is_child = false;
+      for (int i = 0; i < 26; i++) {
+        if (root->children[i] != NULL) {
+          is_child = true;
+        }
+      }
+      return is_child;
     }
 
     int index = word[0] - 'a';
@@ -88,11 +96,32 @@ public:
       child = root->children[index];
     } else {
       cout << endl << "The element is not present";
-      return;
+      return false;
     }
 
-    // Recursion
-    remove_trie_tree(child, word.substr(1));
+    // Recursion (Backtracking)
+    bool is_child_present = remove_trie_tree(child, word.substr(1));
+    // cout<<endl<<"child";
+    // cout<<endl<<child->data;
+    // cout<<endl<<"word";
+    // cout<<endl<<word;
+
+    if (!is_child_present) {
+      delete child;
+      root->children[index] = NULL;
+    }
+
+    if (root->is_terminal_char) {
+      return true;
+    }
+
+    for (int i = 0; i < 26; i++) {
+      if (root->children[i] != NULL) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   void remove_trie(string word) {
