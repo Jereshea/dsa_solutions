@@ -86,7 +86,7 @@ void sliding_subarray(vector<int> &nums, int k, int x, vector<int> &result) {
 }
 
 int main() {
-  cout << "Redundant Operations" << endl;
+  cout << "Sliding Subarray Beauty" << endl;
   vector<int> nums = {1, -1, -3, -2, 3};
   int k = 3;
   int x = 2;
