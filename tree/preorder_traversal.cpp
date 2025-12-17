@@ -58,7 +58,7 @@ void preorder_traversal(Tree *root, vector<int> &result) {
 int main() {
   cout << "Binary Tree" << endl;
   Tree *root = binary_tree();
-  cout << endl << endl << "Level order Traversal of the Binary Tree" << endl;
+  cout << endl << endl << "Preorder Traversal of the Binary Tree" << endl;
   vector<int> result;
   preorder_traversal(root, result);
 
