@@ -46,21 +46,21 @@ Tree *binary_tree() {
   return root;
 }
 
-void preorder_traversal(Tree *root, vector<int> &result) {
+void inorder_traversal(Tree *root, vector<int> &result) {
   if (root == NULL) {
     return;
   }
 
-  preorder_traversal(root->left, result);
+  inorder_traversal(root->left, result);
   result.push_back(root->data);
-  preorder_traversal(root->right, result);
+  inorder_traversal(root->right, result);
 }
 int main() {
   cout << "Binary Tree" << endl;
   Tree *root = binary_tree();
   cout << endl << endl << "Inorder Traversal of the Binary Tree" << endl;
   vector<int> result;
-  preorder_traversal(root, result);
+  inorder_traversal(root, result);
 
   for (int i = 0; i < result.size(); i++) {
     cout << result[i] << " ";
