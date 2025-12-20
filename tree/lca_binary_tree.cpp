@@ -102,7 +102,7 @@ Tree *lca_binary_tree(Tree *root, int n1, int n2) {
   }
 }
 int main() {
-  cout << "Binary Tree Maximum Path Sum" << endl;
+  cout << "LCA in a Binary Tree" << endl;
   Tree *root = binary_tree();
   preorder_traversal(root);
   cout << endl << endl << lca_binary_tree(root, 6, 5)->data;
