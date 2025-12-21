@@ -1,6 +1,6 @@
 /******************************************************************************
 
-Dynamic Programming
+Dynamic Programming (Method: Recursion + Memoization)
 Fibonacci Series
 
 *******************************************************************************/
