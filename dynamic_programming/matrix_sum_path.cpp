@@ -45,11 +45,20 @@ using namespace std;
 int maximum_path_find(vector<vector<int>> &matrix, int row, int col, int
 matrix_row, int matrix_col){
 
-    if(row==matrix_row-1){
+    if (row >= matrix_row || row < 0) {
+        return INT_MIN;
+    }
+
+    if (col >= matrix_col || col < 0) {
+        return INT_MIN;
+    }
+
+    if (row == matrix_row - 1) {
         return matrix[row][col];
     }
-    if(col >=matrix_col || col<0){
-        return INT_MIN;
+
+    if (dp_array[row][col] != INT_MIN) {
+        return dp_array[row][col];
     }
 
     int down=matrix[row][col]+maximum_path_find(matrix,row+1, col, matrix_row,
@@ -67,16 +76,22 @@ int maximum_path_find(vector<vector<int>> &matrix, int row, int col,
                       int matrix_row, int matrix_col,
                       vector<vector<int>> &dp_array) {
 
-  if (row == matrix_row - 1) {
-    return matrix[row][col];
+  if (row >= matrix_row || row < 0) {
+    return INT_MIN;
   }
+
   if (col >= matrix_col || col < 0) {
     return INT_MIN;
+  }
+
+  if (row == matrix_row - 1) {
+    return matrix[row][col];
   }
 
   if (dp_array[row][col] != INT_MIN) {
     return dp_array[row][col];
   }
+
   int down =
       matrix[row][col] +
       maximum_path_find(matrix, row + 1, col, matrix_row, matrix_col, dp_array);
