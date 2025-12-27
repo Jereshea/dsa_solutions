@@ -48,6 +48,10 @@ public:
           return 1;
       }
 
+      if (curr_sum > k) {
+        return 0;
+    }
+
       if(index>=grid.size() || index<0){
           return 0;
       }
@@ -69,6 +73,10 @@ public:
              vector<vector<int>> &dp_array) {
     if (curr_sum == k) {
       return 1;
+    }
+
+    if (curr_sum > k) {
+      return 0;
     }
 
     if (index >= grid.size() || index < 0) {
