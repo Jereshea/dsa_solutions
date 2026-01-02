@@ -17,6 +17,12 @@ public:
     }
     is_terminal_char = false;
   }
+  ~Trie() {
+        // Recursive destructor to free memory
+        for (int i = 0; i < 26; i++)
+            if (children[i])
+                delete children[i];
+    }
 };
 
 void insert_trie(Trie *root, string s1) {
