@@ -46,6 +46,7 @@ class Solution {
 public:
   int shortestPath(vector<vector<int>> &grid, pair<int, int> source,
                    pair<int, int> destination) {
+    if (source == destination) return 0;
 
     // BFS Traversal
     int row = grid.size();
