@@ -30,50 +30,39 @@ Explanation:
 There is no sub-array in the array that sums to 6. Therefore, the output is 0.
 *******************************************************************************/
 
-#include <bits/stdc++.h>
-using namespace std;
-
-class Solution {
-public:
-  int longestSubarray(vector<int> &nums, int k) {
-    int longest_subarray_result = 0;
-
-    for (int i = 0; i < nums.size(); i++) {
-      int ind_subarray_sum = 0;
-      int ind_subarray_len = 0;
-
-      if (nums[i] <= k) {
-        ind_subarray_sum = nums[i];
-        ind_subarray_len = ind_subarray_len + 1;
-        if (ind_subarray_sum == k) {
-          longest_subarray_result =
-              max(longest_subarray_result, ind_subarray_len);
+class solution{
+    public:
+    void k_places(vector<int> &nums, int k){
+        int sum=0;
+        int max_len=0;
+        map<int, int> pre_sum;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            if(sum==k){
+                max_len=max(max_len, i+1);
+            }
+            
+            int rem=sum-k;
+            if(pre_sum.find(rem)!=pre_sum.end()){
+                max_len=max(max_len,i-pre_sum[rem]);
+            }
+            
+            if(pre_sum.find(sum)==pre_sum.end()){
+                pre_sum[sum]=i;
+            }
         }
-      }
-      for (int j = i + 1; j < nums.size(); j++) {
-
-        ind_subarray_sum = ind_subarray_sum + nums[j];
-        ind_subarray_len = ind_subarray_len + 1;
-        if (ind_subarray_sum == k) {
-          longest_subarray_result =
-              max(longest_subarray_result, ind_subarray_len);
-          break;
-        }
-        if (ind_subarray_sum > k) {
-          break;
-        }
-      }
+        cout<<max_len<<endl;
     }
-    return longest_subarray_result;
-  }
+    
 };
 
-int main() {
-  cout << "Longest subarray with sum K" << endl;
-  vector<int> nums = {10, 5, 2, 7, 1, 9};
-  int k = 15;
-  Solution sol;
-  cout << sol.longestSubarray(nums, k);
+int main()
+{
+    cout<<"Rotate Places"<<endl;
+    int k=15;
+    vector<int> nums={10, 5, 2, 7, 1, 9};
+    solution s;
+    s.k_places(nums, k);
 
-  return 0;
+    return 0;
 }
