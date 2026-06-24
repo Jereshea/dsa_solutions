@@ -50,40 +50,42 @@ There are 4 distinct elements in nums and the elements marked as _ can have any
 value.
 *******************************************************************************/
 
+/******************************************************************************
+
+Input: nums = [0, 0, 3, 3, 5, 6]
+*******************************************************************************/
+
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution {
-public:
-  int removeDuplicates(vector<int> &nums) {
-    int result = 0;
-    int prev = nums[0];
-    result = result + 1;
-    int index = 1;
-    for (int i = 1; i < nums.size(); i++) {
-      if (prev != nums[i]) {
-        result = result + 1;
-        prev = nums[i];
-        nums[index] = nums[i];
-        index = index + 1;
-      }
+class Solution{
+    public:
+    void unique_elements(vector<int> &nums){
+        int curr_element=nums[0];
+        int index=1;
+        
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]==curr_element){
+                continue;
+            }else{
+                nums[index]=nums[i];
+                curr_element=nums[index];
+                index=index+1;
+            }
+        }
+        
+        nums.erase(nums.begin()+index, nums.end());
     }
-    // cout<<"Index: "<<index<<endl;
-    for (int i = index; i < nums.size(); i++) {
-      nums.erase(nums.begin() + index, nums.end());
-    }
-
-    return result;
-  }
 };
+int main()
+{
+    cout<<"Unique Elelemts"<<endl;
+    vector<int> nums={0,0,3,3,5,6};
+    Solution s;
+    s.unique_elements(nums);
+    for(auto &x:nums){
+        cout<<x<<" ";
+    }
 
-int main() {
-  vector<int> nums = {0, 0, 3, 3, 5, 6};
-  Solution sol;
-  int result = sol.removeDuplicates(nums);
-  cout << result << endl;
-  for (auto &m : nums) {
-    cout << m << " ";
-  }
-  return 0;
+    return 0;
 }
