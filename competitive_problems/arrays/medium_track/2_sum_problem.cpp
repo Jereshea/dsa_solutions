@@ -30,102 +30,75 @@ Explanation:
 nums[1] + nums[5] = 3 + (-3) = 0
 *******************************************************************************/
 
+/******************************************************************************
+
+Two Sum Problem
+Input: nums = [1, 6, 2, 10, 3], target = 7
+
+
+*******************************************************************************/
+
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution {
-public:
-  void arrange_arr(vector<int> &nums, int start, int mid, int end) {
-    vector<int> left;
-    vector<int> right;
-
-    for (int i = start; i <= mid; i++) {
-      left.push_back(nums[i]);
-    }
-
-    for (int i = mid + 1; i <= end; i++) {
-      right.push_back(nums[i]);
-    }
-
-    // Sort
-    int index_1 = 0;
-    int index_2 = 0;
-    int index = start;
-    while (index_1 < left.size() && index_2 < right.size()) {
-      if (left[index_1] < right[index_2]) {
-        nums[index] = left[index_1];
-        index = index + 1;
-        index_1 = index_1 + 1;
-      } else {
-        nums[index] = right[index_2];
-        index = index + 1;
-        index_2 = index_2 + 1;
-      }
-    }
-
-    while (index_1 < left.size()) {
-      nums[index] = left[index_1];
-      index = index + 1;
-      index_1 = index_1 + 1;
-    }
-
-    while (index_2 < right.size()) {
-      nums[index] = right[index_2];
-      index = index + 1;
-      index_2 = index_2 + 1;
-    }
-  }
-  void sort_arr(vector<int> &nums, int start, int end) {
-    if (start >= end) {
-      return;
-    }
-
-    int mid = start + ((end - start) / 2);
-    sort_arr(nums, start, mid);
-    sort_arr(nums, mid + 1, end);
-    arrange_arr(nums, start, mid, end);
-  }
-  vector<int> twoSum(vector<int> &nums, int target) {
-    // store the index
-    unordered_map<int, int> element_index_mapping;
-    for (int i = 0; i < nums.size(); i++) {
-      element_index_mapping[nums[i]] = i;
-    }
-
-    sort_arr(nums, 0, nums.size() - 1);
-    for (auto &m : nums) {
-      cout << m << " ";
-    }
-
-    vector<int> result;
-    for (int i = 0; i < nums.size(); i++) {
-      for (int j = i; j < nums.size(); j++) {
-        if (nums[i] + nums[j] == target) {
-          result.push_back(nums[i]);
-          result.push_back(nums[j]);
+/*
+// Time Complexity: n+nlogn
+class solution{
+    public:
+    vector<int> find_index(vector<int> nums, int target){
+        unordered_map<int,int> val_index;
+        for(int i=0;i<nums.size();i++){
+            val_index[nums[i]]=i;
         }
-        if (nums[i] + nums[j] > target) {
-          break;
+        
+        sort(nums.begin(),nums.end());
+        
+        int left=0;
+        int right=nums.size()-1;
+        while(left != right){
+            int sum=nums[left]+nums[right];
+            if(sum==target){
+                return {val_index[nums[left]],val_index[nums[right]]};
+            }
+            else if(sum<target){
+                left++;
+            }else{
+                right--;
+            }
         }
-      }
+        return {-1,-1};
     }
+    
+};
+*/
 
-    // Given each has only one solution
-    result[0] = element_index_mapping[result[0]];
-    result[1] = element_index_mapping[result[1]];
-    return result;
-  }
+// Time Complexity: n [Approach: check if target-nums[i] is present in the map]
+class solution{
+    public:
+    vector<int> find_index(vector<int> nums, int target){
+        unordered_map<int,int> val_index;
+        for(int i=0;i<nums.size();i++){
+            val_index[nums[i]]=i;
+        }
+        
+
+        for(int i=0;i<nums.size();i++){
+            int complement=target-nums[i];
+            if(val_index.find(complement)!=val_index.end()){
+                return {i,val_index[complement]};
+            }
+        }
+        return {-1,-1};
+    }
+    
 };
 
-int main() {
-  cout << "2 Sum" << endl;
-  vector<int> nums = {1, 6, 2, 10, 3};
-  int target = 7;
-  Solution sol;
-  vector<int> result = sol.twoSum(nums, target);
-  cout << endl;
-  for (auto &m : result) {
-    cout << m << " ";
-  }
-  return 0;
+int main(){
+    vector<int> nums={1, 6, 2, 10, 3};
+    int target=7;
+    solution s;
+    vector<int> result=s.find_index(nums, target);
+    for(auto &m:result){
+        cout<<m<<" ";
+    }
 }
