@@ -34,26 +34,51 @@ Constraints:
 #include <bits/stdc++.h>
 using namespace std;
 
+// class Solution {
+// public:
+//     int distinctPrimeFactors(vector<int>& nums) {
+//         // Find the product of the elements in nums
+//         int product=1;
+//         for(int i=0;i<nums.size();i++){
+//             product*=nums[i];
+//         }
+//         int act_product=product;
+//         unordered_map<int,int> list;
+//         int result=0;
+//         while(product>1){
+//             for(int i=2;i<=product;i++){
+//                 if(product%i ==0){
+//                     if(list[i]==0){
+//                         list[i]=1;
+//                         result=result+1;
+//                     }
+//                     product=product/i;
+//                     break;
+//                 }
+//             }
+//         }
+
+//         return result;
+//     }
+// };
 class Solution {
 public:
     int distinctPrimeFactors(vector<int>& nums) {
         // Find the product of the elements in nums
-        int product=1;
-        for(int i=0;i<nums.size();i++){
-            product*=nums[i];
-        }
-        int act_product=product;
-        unordered_map<int,int> list;
         int result=0;
-        while(product>1){
-            for(int i=2;i<=product;i++){
-                if(product%i ==0){
-                    if(list[i]==0){
+        unordered_map<int,int> list;
+        for(int i=0;i<nums.size();i++){
+            int ind_num=nums[i];
+            while(ind_num>1){
+                for(int i=2;i<=ind_num;i++){
+                    if(ind_num%i == 0){
+                        if(list[i]==0){
                         list[i]=1;
                         result=result+1;
                     }
-                    product=product/i;
+                    ind_num=ind_num/i;
                     break;
+                    }
                 }
             }
         }
